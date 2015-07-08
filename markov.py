@@ -1,4 +1,5 @@
-import sys, random
+import sys 
+import random
 
 
 def make_chains(corpus):
@@ -23,15 +24,33 @@ def make_chains(corpus):
     
         bi_grams[key].append(value)
 
-
+   # print bi_grams
     return bi_grams
+
 
 
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
-    starter_sentence = random.choice(chains.keys())
-    print starter_sentence
+    
+    
+    #next_element = (current_element[1],  next_word)
+
+   # our_sentence = str(current_element) + next_word
+    sentence = ''
+    current_element = random.choice(chains.keys())
+
+    while len(sentence) < 100:
+        
+        next_word = random.choice(chains[current_element])
+        #sentence += current_element[0] + ' ' + current_element[1] + ' '
+         
+        actual_current_element = str((current_element[1],  next_word))
+        sentence += current_element[0] + ' ' + actual_current_element
+
+
+
+    print sentence
     return "Here's some random text."
 
 
@@ -53,4 +72,5 @@ print random_text
 '''
 input_file = sys.argv[1]
 chains_dict = make_chains(input_file)
+
 print make_text(chains_dict)
