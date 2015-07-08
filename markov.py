@@ -1,4 +1,4 @@
-import sys
+import sys, random
 
 
 def make_chains(corpus):
@@ -14,32 +14,32 @@ def make_chains(corpus):
 
     bi_grams = {}
 
-    for i in range(len(list_of_words) - 1): 
-        bi_grams[(list_of_words[i], list_of_words[(i + 1)])] = []
 
-    for word in bi_grams: 
-        bi_grams[word] += 
-
-
-    # for element in list_of_words:   
-        # if list_of_words.index(element) == len(list_of_words) - 1: 
-        #     break
-        # else: 
-        #     element = (element, list_of_words[list_of_words.index(element) + 1])
-        #     print element
+    for i in range(len(list_of_words) - 2):
+        key = (list_of_words[i], list_of_words[(i + 1)])
+        value = list_of_words[i+2]
+        if key not in bi_grams: 
+            bi_grams[key] = []
+    
+        bi_grams[key].append(value)
 
 
-print make_chains('green-eggs.txt')
+    return bi_grams
+
+
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
-
+    starter_sentence = random.choice(chains.keys())
+    print starter_sentence
     return "Here's some random text."
 
 
 # Change this to read input_text from a file, deciding which file should
 # be used by examining the `sys.argv` arguments (if neccessary, see the
 # Python docs for sys.argv)
+
+
 '''
 input_text = "Some text"
 
@@ -51,3 +51,6 @@ random_text = make_text(chain_dict)
 
 print random_text
 '''
+input_file = sys.argv[1]
+chains_dict = make_chains(input_file)
+print make_text(chains_dict)
