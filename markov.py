@@ -24,8 +24,10 @@ def make_chains(corpus):
     
         bi_grams[key].append(value)
 
-   # print bi_grams
+    #print bi_grams
     return bi_grams
+
+
 
 
 
@@ -37,18 +39,13 @@ def make_text(chains):
     #next_element = (current_element[1],  next_word)
 
    # our_sentence = str(current_element) + next_word
-    sentence = ''
     current_element = random.choice(chains.keys())
+    sentence = current_element[0] + ' ' + current_element[1] + ' '
 
-    while len(sentence) < 100:
-        
+    while chains.get(current_element, None) and len(sentence) < 250:
         next_word = random.choice(chains[current_element])
-        #sentence += current_element[0] + ' ' + current_element[1] + ' '
-         
-        actual_current_element = str((current_element[1],  next_word))
-        sentence += current_element[0] + ' ' + actual_current_element
-
-
+        sentence += next_word + ' '
+        current_element = (current_element[1], next_word)
 
     print sentence
     return "Here's some random text."
